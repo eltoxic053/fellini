@@ -120,7 +120,7 @@ function MainMenu() {
             <div className="main-grid-container-classic-iconic">
             <div className="container-classic">
                 <h2 className="title-classic">Classic cocktails</h2>
-                <div className="images-row">
+                <div className="images-row-classic">
                     {[0, 1, 2, 3].map((index) => (
                         <div className="image" key={index}>
                             <img src={imageURLClassics[index]} alt="Cocktail" onClick={() => handleClick(cocktailIdClassics[index])} />
@@ -131,7 +131,7 @@ function MainMenu() {
             </div>
             <div className="container-iconic">
                 <h2 className="title-iconic">Iconische cocktails</h2>
-                <div className="images-row">
+                <div className="images-row-iconic">
                     {[0, 1, 2, 3].map((index) => (
                         <div className="image" key={index}>
                             <img src={imageURLIconic[index]} alt="Cocktail" onClick={() => handleClick(cocktailIdIconic[index])} />

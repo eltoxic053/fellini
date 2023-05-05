@@ -74,7 +74,7 @@
     margin-bottom: 20px;
 }
 
-.images-row {
+.images-row-classic, .images-row-iconic {
     grid-template-columns: repeat(2, 100px);
     grid-template-rows: repeat(2, auto);
     display: grid;
