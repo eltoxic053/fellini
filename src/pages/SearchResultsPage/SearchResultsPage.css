@@ -1,0 +1,92 @@
+.search-results {
+    position: absolute;
+    color: white;
+    background-color: #6C6C6C;
+    border-radius: 20px;
+    width: 70%;
+    height: 400px;
+    margin-top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin-right: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.grid-container div {
+    width: 100px;
+    text-align: center;
+}
+
+.search-image img {
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 10px;
+}
+.favorite-cocktail-userprofile{
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
+@media screen and (max-width: 768px) {
+    .search-results {
+        width: 90%;
+        height: auto;
+        margin-top: 20px;
+        border-radius: 10px;
+    }
+
+    .search-image {
+        max-width: 100%;
+    }
+
+    .grid-container div {
+        width: 80px;
+    }
+    .grid-container h2{
+        font-size: 12px;
+    }
+
+    .pagination {
+        margin-top: 10px;
+    }
+}
