@@ -1,0 +1,26 @@
+.footer-container {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+
+}
+
+.menu-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.menu-link {
+    margin-right: 1rem;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
