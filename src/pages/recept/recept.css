@@ -1,0 +1,83 @@
+.recept {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    height: 80vh;
+}
+
+.recept-header {
+    margin-left: 30px;
+    padding: 0 20px;
+}
+
+.recept-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.recept-ingredients {
+    flex-basis: 20%;
+    padding: 0 20px;
+    background-color: #6D6A6A;
+    border-radius: 20px;
+    margin-left: 50px;
+}
+
+.recept-instructions {
+    flex-basis: 20%;
+    padding: 0 1em;
+    background-color: #6D6A6A;
+    border-radius: 20px;
+    margin-left: 30px
+}
+
+.recept-image {;
+    margin-left: 30px;
+    flex-basis: 30%;
+}
+
+.recept-image img {
+    width: 80vh;
+    height: 65vh;
+    border-radius: 20px;
+}
+
+.recept-content h2 {
+    margin-top: 0;
+}
+
+.recept-content h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.recept-content ul {
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-left: 0;
+}
+
+.recept-content li {
+    list-style: none;
+    margin-bottom: 0.5em;
+}
+
+@media (max-width: 767px) {
+    .recept-ingredients{
+        margin-left: 4px;
+    }
+
+    .recept-instructions{
+        margin-left: 4px;
+    }
+
+    .recept-header h1{
+        margin-left: 30px;
+    }
+
+    .recept-image{
+        display: none;
+    }
+}
