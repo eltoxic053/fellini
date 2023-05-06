@@ -1,6 +1,5 @@
-
 .mainmenu {
-    max-width: 1200px;
+
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -15,19 +14,24 @@
 }
 
 .mainmenu-grid-container {
+    margin-left: 100px;
+    align-content: center;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(5, 200px);
+    gap: 10px;
 }
 
 .images-cocktails {
     position: relative;
+    width: 100px;
+    height: 100px;
 }
 
 .images-cocktails img {
-    width: 75%;
+    width: 100px;
+    height: 100px;
     border-radius: 30%;
-    height: auto;
+
     display: block;
 }
 
@@ -57,24 +61,27 @@
 }
 
 .main-grid-container-classic-iconic{
+
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    height: 100px;
 }
 
 /* Classic cocktails */
 .container-classic,
 .container-iconic {
     margin: 40px 0;
+
 }
 
 .title-classic,
 .title-iconic {
-    font-size: 30px;
+    font-size:18px;
     margin-bottom: 20px;
 }
 
 .images-row-classic, .images-row-iconic {
+    height: 20px;
     grid-template-columns: repeat(2, 100px);
     grid-template-rows: repeat(2, auto);
     display: grid;
@@ -85,16 +92,16 @@
 
 .image {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     margin-bottom: 20px;
     border-radius: 30%;
     overflow: hidden;
 }
 
 .image img {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border-radius: 30%;
     object-fit: cover;
     object-position: center;
@@ -144,6 +151,7 @@
     }
 
     .mainmenu-grid-container{
+        margin-left: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -152,6 +160,8 @@
 
     .images-row-classic,
     .images-row-iconic {
+        width: 140px;
+        height: 350px;
         display: flex;
         flex-direction: column;
         justify-content: center;
