@@ -122,3 +122,55 @@
 .image:hover p {
     opacity: 1;
 }
+
+@media screen and (max-width: 767px) {
+
+    .cocktail-tile h1{
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .images-cocktails:not(:first-of-type) {
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .images-cocktails img{
+        height: 75px;
+        width: auto;
+    }
+
+    .mainmenu-grid-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .images-row-classic,
+    .images-row-iconic {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .image {
+        margin: 5px 0;
+        height: 50px;
+    }
+    img {
+        max-width: 120px;
+    }
+
+    .image img{
+        width: 50px;
+        height: auto;
+    }
+
+    .title-classic, .title-iconic{
+        font-size: 14px;
+    }
+}
