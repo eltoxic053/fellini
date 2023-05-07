@@ -12,19 +12,30 @@ function Favorite() {
     const [cocktailNames, setCocktailNames] = useState([])
 
 
+
+
+    const screenWidth = window.innerWidth;
+    let resultsPerPage = 9;
+    if (screenWidth < 767) {
+        resultsPerPage = 3;
+    }
+
+
+
+
     const [currentPage, setCurrentPage] = useState(1);
-    const resultsPerPage = 9;
-    const totalPages = Math.ceil(cocktailNames.length / resultsPerPage);
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
-    };
+    const start = (currentPage - 1) * resultsPerPage;
+    const end = Math.min(start + resultsPerPage, cocktailIds.length);
+    const totalPages = Math.ceil(cocktailIds.length / resultsPerPage);
 
     const handlePrevPage = () => {
         setCurrentPage(currentPage - 1);
     };
 
-    const start = (currentPage - 1) * resultsPerPage;
-    const end = start + resultsPerPage;
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
 
     useEffect(() => {
         Promise.all(
@@ -59,17 +70,7 @@ function Favorite() {
                 const userInfo = atob(response.data.info);
                 const ids = userInfo.split(",").map((id) => id.replace(/\D/g, ""));
 
-                const promises = ids.map((id) =>
-                    axios.get(
-                        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
-                    )
-                );
-
-                const responses = await Promise.all(promises);
-                const favoritesData = responses.map(
-                    (response) => response.data.drinks[0]
-                );
-                setFavorites(favoritesData);
+                setCocktails(ids);
             } catch (error) {
                 console.log(error);
             }
@@ -78,11 +79,12 @@ function Favorite() {
         getFavorites();
     }, [token]);
 
+
     return (
         <div className="container">
             <h1>Favorieten</h1>
             <div className="images-cocktails-standard">
-                {favorites.map((favorite) => (
+                {favorites.slice(start, end).map((favorite) => (
                     <div className="images-cocktails-standard">
                         <img src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
                         <div className="cocktail-name-standard ">
