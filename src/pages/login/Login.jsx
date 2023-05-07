@@ -30,12 +30,7 @@ function LoginPage({ onLogin }) {
             console.log(response.data)
             const token = response.data.accessToken;
             onLogin(token);
-            if (JSON.stringify(response.data.roles) === JSON.stringify(["ROLE_ADMIN"])) {
-                navigate("/recept");
-            } else {
-                navigate("/main-menu")
-            }
-
+            navigate("/main-menu")
 
         } catch (error) {
             console.error(error);
