@@ -119,20 +119,6 @@ function Registration() {
                         </div>
                     </div>
 
-
-                    <div className="form-group-group">
-                        <div className="form-group">
-                        <label htmlFor="functie" className="form-label">Functie</label>
-                        <input type="text"
-                               className="form-control-registration"
-                               id="functie"
-                               placeholder="Voer functie in"
-                               value={info}
-                               onChange={(e) => setInfo(e.target.value)}
-                        />
-                        </div>
-
-
                     <div className="form-group">
                         <div className="button-container-registration">
                         <button className="cancel-button" onClick={handleFormCancel}>Cancel</button>
@@ -145,7 +131,6 @@ function Registration() {
 
 
                 </div>
-            </div>
         </div>
     );
 }
