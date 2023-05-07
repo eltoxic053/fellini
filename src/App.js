@@ -8,6 +8,7 @@ import Recept from "./pages/recept/recept";
 import MijnBar from "./pages/mijnbar/MijnBar";
 import Footer from "./components/Footer/Footer";
 import SearchResultsPage from "./pages/SearchResultsPage/SearchResultsPage";
+import Registration from "./pages/registration/registration";
 import UserProfile from "./pages/userprofile/userProfile";
 import Favorite from "./pages/favorieten/favorite";
 
@@ -49,7 +50,7 @@ function App() {
                             <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
                             <Route path="/userProfile" element={<UserProfile />} />
                             <Route path="/Favorieten" element={<Favorite />} />
-
+                            <Route path="/registration" element={<Registration />} />
                         </>
                     ) : (
                         <>
@@ -59,6 +60,7 @@ function App() {
                             <Route path="/SearchResultsPage" element={<LoginRequiredPage />} />
                             <Route path="/userProfile" element={<LoginRequiredPage />} />
                             <Route path="/Favorieten" element={<LoginRequiredPage />} />
+                            <Route path="/registration" element={<LoginRequiredPage />} />
                         </>
                     )}
                 </Routes>
