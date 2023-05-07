@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, {all} from 'axios';
 import solidleft from '../../assets/solidleft.png'
 import solidright from '../../assets/solidright.png'
+import { Link } from 'react-router-dom'
 import './MijnBar.css';
 function MijnBar() {
 
@@ -44,15 +45,22 @@ function MijnBar() {
     const [imageURLs, setImageURLs] = useState([]);
     const [cocktailId, setCocktails] = useState([]);
     const [cocktailNames, setCocktailNames] = useState([])
-
     const cocktailIds = [178325, 11000, 178336, 11202, 11117, 17196, 11009, 11004, 178357, 17204, 11728, 12362, 11936, 17242, 17207, 11008, 11113, 11006];
 
 
 
+    const screenWidth = window.innerWidth;
+    let resultsPerPage = 9;
+    if (screenWidth < 767) {
+        resultsPerPage = 3;
+    }
+
+    const totalPages = Math.ceil(cocktailIds.length / resultsPerPage);
+
 
     const [currentPage, setCurrentPage] = useState(1);
-    const resultsPerPage = 9;
-    const totalPages = Math.ceil(cocktailNames.length / resultsPerPage);
+    const start = (currentPage - 1) * resultsPerPage;
+    const end = Math.min(start + resultsPerPage, cocktailIds.length);
     const handleNextPage = () => {
         setCurrentPage(currentPage + 1);
     };
@@ -60,9 +68,6 @@ function MijnBar() {
     const handlePrevPage = () => {
         setCurrentPage(currentPage - 1);
     };
-
-    const start = (currentPage - 1) * resultsPerPage;
-    const end = start + resultsPerPage;
 
     useEffect(() => {
         Promise.all(
