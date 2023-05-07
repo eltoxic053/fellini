@@ -1,24 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './App.css'
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
+import LoginPage from './pages/login/Login'
+import Navbar from "./components/Navbar/Navbar";
+import MainMenu from "./pages/mainmenu/mainmenu";
+import Recept from "./pages/recept/recept";
+import SearchResultsPage from "./pages/SearchResultsPage/SearchResultsPage";
+import Footer from "./components/Footer/Footer";
+import UserProfile from "./pages/userprofile/userProfile";
+
+
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+      !!localStorage.getItem('authToken')
+  );
+
+  const handleAuthentication = (accessToken) => {
+    localStorage.setItem('authToken', accessToken);
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setIsAuthenticated(false);
+  };
+
+  const LoginRequiredPage = () => {
+    return (
+        <div>
+          <Navigate to="/" />
+        </div>
+    );
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <BrowserRouter>
+          {isAuthenticated && <Navbar onLogout={handleLogout} />}
+          <Routes>
+            <Route path="/" element={<LoginPage onLogin={handleAuthentication} />} />
+            {isAuthenticated ? (
+                <>
+                    <Route path="/main-menu" element={<MainMenu />} />
+                    <Route path="/recept" element={<Recept />} />
+                    <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
+                    <Route path="/userProfile" element={<UserProfile />} />
+
+                </>
+            ) : (
+                <>
+                    <Route path="/main-menu" element={<LoginRequiredPage />} />
+                    <Route path="/recept" element={<LoginRequiredPage />} />
+                    <Route path="/SearchResultsPage" element={<LoginRequiredPage />} />
+                    <Route path="/userProfile" element={<LoginRequiredPage />} />
+
+
+                </>
+            )}
+          </Routes>
+          {isAuthenticated && <Footer />}
+        </BrowserRouter>
+      </div>
   );
 }
 

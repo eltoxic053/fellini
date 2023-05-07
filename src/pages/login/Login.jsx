@@ -48,6 +48,12 @@ function LoginPage({ onLogin }) {
 
     }
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleFormSubmit(e);
+        }
+    };
+
     return (
         <div className="login-page">
             <div className="login-form-container">
@@ -73,6 +79,7 @@ function LoginPage({ onLogin }) {
                             id="password"
                             placeholder="Wachtwoord"
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyPress={handleKeyPress}
                         />
                     </div>
                     {errorMessage && <div className="error-message">{errorMessage}</div>}
