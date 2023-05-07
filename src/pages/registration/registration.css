@@ -1,0 +1,108 @@
+.registration-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+}
+
+.registration-form-container {
+    background-color: #6D6A6A;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 30vh;
+}
+
+.form-control-registration{
+    width: 50vh;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #6C6C6C;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background-color: #f0f0f0;
+    padding: 5px;
+}
+
+.form-label{
+    color: white;
+    font-weight: bold;
+
+}
+
+.button-container-registration {
+    display: flex;
+    align-items: center;
+    margin-top: 26px;
+}
+
+.cancel-button{
+    width: 150px;
+    height: 32px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 8px;
+}
+
+.registration-button{
+    margin-left:44px;
+    width: 150px;
+    height: 32px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 8px;
+}
+
+.form-group-group {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 767px) {
+    .registration-form-container {
+        height: 150px;
+        width: 240px;
+    }
+
+    .registration-form{
+        width: 240px;
+    }
+
+    .form-control-registration{
+        width: 100%;
+        font-size: 12px;
+    }
+    .form-label{
+        margin-top: 10px;
+        font-size: 12px;
+    }
+
+    .button-container-registration{
+        width: 240px;
+    }
+
+    .cancel-button, .registration-button{
+        height: 30px;
+        font-size: 12px;
+        width: 85px;
+    }
+}
