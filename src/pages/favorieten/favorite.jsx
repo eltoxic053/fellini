@@ -8,7 +8,7 @@ function Favorite() {
     const [favorites, setFavorites] = useState([]);
     const token = localStorage.getItem("authToken");
     const [imageURLs, setImageURLs] = useState([]);
-    const [cocktailIds, setCocktails] = useState([]);
+    const [cocktailIds, setCocktailIds] = useState([]);
     const [cocktailNames, setCocktailNames] = useState([])
 
 
@@ -32,23 +32,6 @@ function Favorite() {
         setCurrentPage(currentPage - 1);
     };
 
-
-    useEffect(() => {
-        Promise.all(
-            cocktailIds.map(id =>
-                axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-            )
-        )
-            .then(responses => {
-                const cocktails = responses.map(response => response.data.drinks[0]);
-                setImageURLs(cocktails.map(cocktail => cocktail.strDrinkThumb));
-                setCocktails(cocktails.map(cocktail => cocktail.idDrink));
-                setCocktailNames(cocktails.map(cocktail => cocktail.strDrink));
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
 
     useEffect(() => {
         const getFavorites = () => {
@@ -86,6 +69,13 @@ function Favorite() {
 
         getFavorites();
     }, [token]);
+
+    useEffect(() => {
+        const ids = favorites.map(cocktail => cocktail.idDrink);
+        setCocktailIds(ids);
+        setImageURLs(favorites.map(cocktail => cocktail.strDrinkThumb));
+        setCocktailNames(favorites.map(cocktail => cocktail.strDrink));
+    }, [favorites])
 
 
     return (
