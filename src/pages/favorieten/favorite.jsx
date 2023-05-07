@@ -12,28 +12,24 @@ function Favorite() {
     const [cocktailNames, setCocktailNames] = useState([])
 
 
-
-
     const screenWidth = window.innerWidth;
     let resultsPerPage = 9;
     if (screenWidth < 767) {
         resultsPerPage = 3;
     }
 
-
+    const totalPages = Math.ceil(cocktailIds.length / resultsPerPage);
 
 
     const [currentPage, setCurrentPage] = useState(1);
     const start = (currentPage - 1) * resultsPerPage;
     const end = Math.min(start + resultsPerPage, cocktailIds.length);
-    const totalPages = Math.ceil(cocktailIds.length / resultsPerPage);
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
 
     const handlePrevPage = () => {
         setCurrentPage(currentPage - 1);
-    };
-
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
     };
 
 
@@ -55,25 +51,37 @@ function Favorite() {
     }, []);
 
     useEffect(() => {
-        const getFavorites = async () => {
-            try {
-                const response = await axios.get(
-                    "https://frontend-educational-backend.herokuapp.com/api/user",
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
+        const getFavorites = () => {
+            axios
+                .get("https://frontend-educational-backend.herokuapp.com/api/user", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    const userInfo = atob(response.data.info);
+                    const ids = userInfo.split(",").map((id) => id.replace(/\D/g, ""));
+                    const promises = ids.map((id) =>
+                        axios.get(
+                            `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+                        )
+                    );
 
-                const userInfo = atob(response.data.info);
-                const ids = userInfo.split(",").map((id) => id.replace(/\D/g, ""));
-
-                setCocktails(ids);
-            } catch (error) {
-                console.log(error);
-            }
+                    Promise.all(promises)
+                        .then((responses) => {
+                            const favoritesData = responses.map(
+                                (response) => response.data.drinks[0]
+                            );
+                            setFavorites(favoritesData);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         };
 
         getFavorites();
@@ -81,13 +89,13 @@ function Favorite() {
 
 
     return (
-        <div className="container">
+        <div className="container-favorite">
             <h1>Favorieten</h1>
-            <div className="images-cocktails-standard">
+            <div className="images-cocktails-favorite">
                 {favorites.slice(start, end).map((favorite) => (
-                    <div className="images-cocktails-standard">
+                    <div className="images-cocktails-favorite">
                         <img src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
-                        <div className="cocktail-name-standard ">
+                        <div className="cocktail-name-favorite ">
                             <p>{favorite.strDrink}</p>
                         </div>
                     </div>
@@ -95,10 +103,10 @@ function Favorite() {
             </div>
             <div className="pagination">
                 {currentPage > 1 && (
-                    <img src={solidleft} alt="Cocktail" onClick={handlePrevPage}/>
+                    <img src={solidleft} alt="Cocktail" onClick={handlePrevPage} />
                 )}
                 {currentPage < totalPages && (
-                    <img src={solidright} alt="Cocktail" onClick={handleNextPage}/>
+                    <img src={solidright} alt="Cocktail" onClick={handleNextPage} />
                 )}
             </div>
         </div>
