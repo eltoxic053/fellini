@@ -1,24 +1,23 @@
 .mainmenu {
-
     margin: 0 auto;
     padding: 20px;
-    text-align: center;
     color: white;
+    text-align: center;
 }
 
 .cocktail-tile h1 {
     align-content: center;
     font-size: 36px;
     margin-bottom: 20px;
-
 }
 
 .mainmenu-grid-container {
-    margin-left: 100px;
+    margin: 0 auto;
     align-content: center;
     display: grid;
     grid-template-columns: repeat(5, 200px);
     gap: 10px;
+    justify-content: center;
 }
 
 .images-cocktails {
@@ -31,12 +30,8 @@
     width: 100px;
     height: 100px;
     border-radius: 30%;
-
     display: block;
 }
-
-
-
 
 .images-cocktails p {
     position: absolute;
@@ -60,18 +55,15 @@
     width: 168px;
 }
 
-.main-grid-container-classic-iconic{
-
+.main-grid-container-classic-iconic {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100px;
 }
 
-/* Classic cocktails */
 .container-classic,
 .container-iconic {
     margin: 40px 0;
-
 }
 
 .title-classic,
@@ -124,11 +116,10 @@
     transition: opacity 0.2s ease-in-out;
 }
 
-
-
 .image:hover p {
     opacity: 1;
 }
+
 
 @media screen and (max-width: 767px) {
 
