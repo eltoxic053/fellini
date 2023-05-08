@@ -35,13 +35,13 @@ function App() {
         );
     };
 
-
     return (
         <div>
             <BrowserRouter>
                 {isAuthenticated && <Navbar onLogout={handleLogout} />}
                 <Routes>
                     <Route path="/" element={<LoginPage onLogin={handleAuthentication} />} />
+                    <Route path="/registration" element={isAuthenticated ? <Navigate to="/" /> : <Registration />} />
                     {isAuthenticated ? (
                         <>
                             <Route path="/main-menu" element={<MainMenu />} />
@@ -50,7 +50,6 @@ function App() {
                             <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
                             <Route path="/userProfile" element={<UserProfile />} />
                             <Route path="/Favorieten" element={<Favorite />} />
-                            <Route path="/registration" element={<Registration />} />
                         </>
                     ) : (
                         <>
@@ -60,7 +59,6 @@ function App() {
                             <Route path="/SearchResultsPage" element={<LoginRequiredPage />} />
                             <Route path="/userProfile" element={<LoginRequiredPage />} />
                             <Route path="/Favorieten" element={<LoginRequiredPage />} />
-                            <Route path="/registration" element={<LoginRequiredPage />} />
                         </>
                     )}
                 </Routes>
