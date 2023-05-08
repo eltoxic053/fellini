@@ -21,6 +21,7 @@ Zorg ervoor dat je de nieuwste versies van Node.js en Git hebt geïnstalleerd vo
 Je kunt deze software downloaden vanaf de officiële website.
 
 [Node.js](https://nodejs.org/en/download) 
+
 [Git](https://git-scm.com/downloads) 
 
 ### `Installatie`
