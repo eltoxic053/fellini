@@ -5,7 +5,6 @@ import "./Navbar.css";
 import fellini from '../../assets/fellini.jpg';
 import search from '../../assets/search.jpg';
 
-
 const Navbar = ({ isAuthenticated, onLogout }) => {
     const [userData, setUserData] = useState(null);
     const [error, setError] = useState(null);
@@ -27,10 +26,14 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
         })
             .then(response => {
                 setUserData(response.data);
-                console.log(response)
+                console.log(response);
             })
-
+            .catch(error => {
+                setError("Error retrieving user data");
+                console.error(error);
+            });
     }, [token]);
+
     const handleSearch = () => {
         if (searchTerm.trim() !== '') {
             axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm.trim()}`)
@@ -41,14 +44,18 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
                     cocktails.forEach(cocktail => {
                         queryParams.append('names[]', cocktail.strDrink);
                         queryParams.append('thumbnails[]', cocktail.strDrinkThumb);
-                        queryParams.append('id[]', cocktail.idDrink)
+                        queryParams.append('id[]', cocktail.idDrink);
                     });
                     window.location.href = `/SearchResultsPage?${queryParams.toString()}`;
                     setSearchTerm('');
                     setPopupVisible(false);
+                })
+                .catch(error => {
+                    console.error(error);
                 });
-        };
+        }
     };
+
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleSearch();
@@ -68,23 +75,29 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
             <div className="navbar-logo">
                 <img src={fellini} alt="logo" />
             </div>
-            <img src={search} alt="search" className="search-icon" onClick={handlePopupClick} />
-            {popupVisible && (
-                <div className="popup-container" onClick={handlePopupClose}>
-                    <div className="popup" onClick={(e) => e.stopPropagation()}>
-                        <input className="popup-search" type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
-                        <button className='popup-button' onClick={handleSearch}>Search</button>
-                    </div>
-                </div>
+            {isAuthenticated && (
+                <>
+                    <img src={search} alt="search" className="search-icon" onClick={handlePopupClick} />
+                    {popupVisible && (
+                        <div className="popup-container" onClick={handlePopupClose}>
+                            <div className="popup" onClick={(e) => e.stopPropagation()}>
+                                <input className="popup-search" type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
+                                <button className='popup-button' onClick={handleSearch}>Search</button>
+                            </div>
+                        </div>
+                    )}
+                    {userData && (
+                        <div className="navbar-profile-image">
+                            {error && <div className="error-message">{error}</div>}
+                            <Link to="/userProfile">
+                                <div className="profile-image-circle" style={{ backgroundColor: userData.profilePicture ? 'transparent' : '#ccc' }}>
+                                    {userData.profilePicture ? <img src={userData.profilePicture} alt="profile" /> : null}
+                                </div>
+                            </Link>
+                        </div>
+                    )}
+                </>
             )}
-            <div className="navbar-profile-image">
-                {error && <div className="error-message">{error}</div>}
-                <Link to="/userProfile">
-                <div className="profile-image-circle" style={{ backgroundColor: userData?.profilePicture ? 'transparent' : '#ccc' }}>
-                    {userData?.profilePicture ? <img src={userData.profilePicture} alt="profile" /> : null}
-                </div>
-                </Link>
-            </div>
         </nav>
     );
 };
