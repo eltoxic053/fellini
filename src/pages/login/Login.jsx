@@ -1,10 +1,16 @@
-import React, {useState} from "react";
+import React, { useState, createContext, useContext } from "react";
 import "./Login.css";
 import fellini from "../../assets/fellini.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function LoginPage({ onLogin }) {
+const LoginContext = createContext();
+
+function useLoginContext() {
+    return useContext(LoginContext);
+}
+
+function LoginProvider({ children }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -27,27 +33,61 @@ function LoginPage({ onLogin }) {
                 }
             );
 
-            console.log(response.data)
+            console.log(response.data);
             const token = response.data.accessToken;
-            onLogin(token);
-            navigate("/main-menu")
-
+            onLogin(token)
+            navigate("/main-menu");
+            window.location.reload();
         } catch (error) {
             console.error(error);
-            if (error.response.status === 401 || error.response.status === 404) {
+            if (error.response && (error.response.status === 401 || error.response.status === 404)) {
                 setErrorMessage("Onbekende gebruikersnaam of wachtwoord onjuist.");
             } else {
                 setErrorMessage("Er is iets misgegaan bij het inloggen. Probeer het later opnieuw.");
             }
         }
-
     }
 
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
             handleFormSubmit(e);
         }
     };
+
+    const onLogin = (token) => {
+        localStorage.setItem('authToken', token);
+        console.log("Logged in with token:", token);
+    };
+
+    const loginContextValue = {
+        username,
+        setUsername,
+        password,
+        setPassword,
+        errorMessage,
+        setErrorMessage,
+        handleFormSubmit,
+        handleKeyPress,
+    };
+
+    return (
+        <LoginContext.Provider value={loginContextValue}>
+            {children}
+        </LoginContext.Provider>
+    );
+}
+
+function LoginPage() {
+    const {
+        username,
+        setUsername,
+        password,
+        setPassword,
+        errorMessage,
+        setErrorMessage,
+        handleFormSubmit,
+        handleKeyPress,
+    } = useLoginContext();
 
     return (
         <div className="login-page">
@@ -55,7 +95,9 @@ function LoginPage({ onLogin }) {
                 <div className="login-form">
                     <h1 className="font-login">Login</h1>
                     <div className="form-group">
-                        <label htmlFor="username" className="form-label">Gebruikersnaam</label>
+                        <label htmlFor="username" className="form-label">
+                            Gebruikersnaam
+                        </label>
                         <input
                             type="text"
                             className="form-control"
@@ -67,12 +109,15 @@ function LoginPage({ onLogin }) {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password" className="form-label">Wachtwoord</label>
+                        <label htmlFor="password" className="form-label">
+                            Wachtwoord
+                        </label>
                         <input
                             type="password"
                             className="form-control"
                             id="password"
                             placeholder="Wachtwoord"
+                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             onKeyPress={handleKeyPress}
                         />
@@ -94,4 +139,4 @@ function LoginPage({ onLogin }) {
     );
 }
 
-export default LoginPage;
+export { LoginProvider, useLoginContext, LoginPage };
