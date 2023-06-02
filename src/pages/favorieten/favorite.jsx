@@ -78,14 +78,54 @@ function Favorite() {
     }, [favorites])
 
 
+    const handleReceptClick = (id) => {
+
+        axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+            .then(response => {
+                console.log(response)
+                const cocktail = response.data.drinks[0];
+                console.log(response.data)
+                const cocktailDetails = {
+                    name: cocktail.strDrink,
+                    instructions: cocktail.strInstructions,
+                    ingredients: []
+                };
+
+                for (let i = 1; i <= 15; i++) {
+                    const ingredient = cocktail[`strIngredient${i}`];
+                    const measure = cocktail[`strMeasure${i}`];
+
+                    if (ingredient && measure) {
+                        cocktailDetails.ingredients.push({ ingredient, measure });
+                    }
+                }
+
+                const queryParams = new URLSearchParams();
+                queryParams.append('name', cocktailDetails.name);
+                queryParams.append('instructions', cocktailDetails.instructions);
+                queryParams.append('strDrinkThumb', cocktail.strDrinkThumb);
+                cocktailDetails.ingredients.forEach((ingredient, index) => {
+                    queryParams.append(`ingredient${index + 1}`, `${ingredient.ingredient} - ${ingredient.measure}`);
+                });
+
+                window.location.href = `/recept?id=${id}&${queryParams.toString()}`;
+            })
+            .catch(error => {
+                console.log(error);
+
+            })
+    };
+
+
+
     return (
         <div className="container-favorite">
             <h1>Favorieten</h1>
             <div className="images-cocktails-favorite">
                 {favorites.slice(start, end).map((favorite) => (
                     <div className="images-cocktails-favorite">
-                        <img src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
-                        <div className="cocktail-name-favorite ">
+                        <img onClick={() => handleReceptClick(favorite.idDrink)} src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
+                        <div onClick={() => handleReceptClick(favorite.idDrink)} className="cocktail-name-favorite ">
                             <p>{favorite.strDrink}</p>
                         </div>
                     </div>
