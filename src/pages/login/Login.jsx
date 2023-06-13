@@ -37,7 +37,6 @@ function LoginProvider({ children }) {
             const token = response.data.accessToken;
             onLogin(token)
             navigate("/main-menu");
-            window.location.reload();
         } catch (error) {
             console.error(error);
             if (error.response && (error.response.status === 401 || error.response.status === 404)) {
