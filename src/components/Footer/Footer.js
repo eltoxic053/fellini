@@ -13,9 +13,9 @@ const Footer = ({ isAuthenticated, onLogout }) => {
         <footer className="footer">
             <div className="footer-container">
                 <div className="menu-links">
-                    <Link className="menu-link" to="/Main-menu">Main menu</Link>
-                    <Link className="menu-link" to="/Mijn-bar">Mijn bar</Link>
-                    <Link className="menu-link" to="/Favorieten">Favorieten</Link>
+                    <Link className="menu-link" to="/main-menu">Main menu</Link>
+                    <Link className="menu-link" to="/mijn-bar">Mijn bar</Link>
+                    <Link className="menu-link" to="/favorieten">Favorieten</Link>
                     <Link className="menu-link" onClick={handleLogout} to="/">
                         Log uit
                     </Link>

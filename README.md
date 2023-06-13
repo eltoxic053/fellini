@@ -1,70 +1,61 @@
-#Cocktail applicatie
+## Installatiehandleiding: Fellini React Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deze handleiding legt uit hoe je de Fellini React Web App kunt installeren op je computer. Je hebt geen voorkennis nodig van computers of programmeren om deze stappen te volgen.
 
-## Available Scripts
+## Inhoudsopgave
+1. Benodigdheden
+2. Installatie
+3. Starten van de webapplicatie
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `Benodigde software`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Om de Fellini webapplicatie te kunnen draaien, dien je de volgende software op je computer te hebben geïnstalleerd
 
-### `npm test`
+Node.js: de JavaScript runtime-omgeving die nodig is om React applicaties te bouwen en draaien.
+NPM: Node Package Manager, dat wordt gebruikt om externe libraries en tools te installeren die nodig zijn voor de Fellini applicatie.
+Git: de versiebeheersoftware die wordt gebruikt om de Fellini applicatie te downloaden en bij te werken vanuit de Git repository.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Zorg ervoor dat je de nieuwste versies van Node.js en Git hebt geïnstalleerd voordat je doorgaat met de volgende stappen. 
+Je kunt deze software downloaden vanaf de officiële website.
 
-### `npm run build`
+[Node.js](https://nodejs.org/en/download) 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Git](https://git-scm.com/downloads) 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `Installatie`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Nu je de benodigde software hebt geïnstalleerd, kunnen we doorgaan met de installatie van de React webapplicatie. 
+Volg de onderstaande stappen:
 
-### `npm run eject`
+1. Open de terminal op je computer. Dit is de command line interface waarmee je commando's kunt geven aan je computer.
+2. Navigeer naar de map waar je de webapplicatie wilt opslaan. Gebruik hiervoor het "cd" commando, gevolgd door de naam van de map. Bijvoorbeeld: "cd Documents/React".
+3. Clone de repository van GitHub naar je computer. Gebruik hiervoor het commando "git clone" gevolgd door de URL van de repository. In dit geval is dat:
+   git clone git@github.com:eltoxic053/fellini.git  
+4. Navigeer naar de map van de webapplicatie. Gebruik hiervoor het "cd" commando, gevolgd door de naam van de map. In dit geval is dat: cd fellini
+5. Installeer de afhankelijkheden van de applicatie met behulp van het volgende commando: npm install
+6. Dit kan even duren, afhankelijk van de snelheid van je internetverbinding. NPM zal alle afhankelijkheden van de applicatie downloaden en installeren in een map genaamd "node_modules".
+7. Start de webserver met het volgende commando: npm start
+8. Dit commando zal de webserver starten en de webapplicatie openen in je standaard webbrowser. Als het goed is, zie je nu de homepage van de webapplicatie.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `Starten van de webapplicatie`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Gefeliciteerd, je hebt de Fellini-applicatie succesvol geïnstalleerd op je computer! Nu kun je de applicatie gebruiken om cocktails te zoeken, details over verschillende cocktails te bekijken en je favoriete cocktail op te slaan.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Om de applicatie te starten, open je een terminalvenster en navigeer je naar de map fellini waarin je de code hebt gedownload.
+Voer vervolgens het volgende commando uit: npm start
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Dit zal de ontwikkelserver starten en automatisch de applicatie openen in je standaard webbrowser. Als dit niet het geval is, kun je de applicatie handmatig openen door naar http://localhost:3000 te navigeren in je webbrowser.
 
-## Learn More
+Om gebruik te maken van alle functionaliteiten van de Fellini webapplicatie, is het noodzakelijk om een account te registreren door naar de URL http://localhost:3000/registration te gaan, waar je na het invullen van de vereiste gegevens zoals gebruikersnaam, e-mailadres en wachtwoord, volledige toegang zult hebben tot de applicatie.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Als je eenmaal bent ingelogd, wordt je doorgestuurd naar de startpagina van de applicatie waar je direct aan de slag kunt met een aantal cocktails. Bovenaan de pagina vind je een vergrootglas waarmee je na specifieke cocktails kunt zoeken.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Om je favoriete cocktails te bekijken, klik je op de knop "Favorieten" in de navigatiebalk onderaan de pagina. Hier vind je een lijst met alle cocktails die je aan je favorieten hebt toegevoegd.
 
-### Code Splitting
+Om de standaard menu kaart te bekijken, klik je op de knop "Mijn bar" in de navigatiebalk onderaan de pagina. Hier vind je de lijst met standaard cocktails van de menu kaart.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Om je account gegevens aan te passen zoals het uploaden van een profiel foto, het wijzigen van je wachtwoord of email adres, klik je rechtsboven aan de pagina op het grijze rondje. Hierna zal je door worden gestuurd na hjet profiel dashboard waar je verschillende dingen kunt aanpassen
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Om cocktails toe te voegen aan je favorieten klik je op het grijze rondje rechtsboven. Vervolgens klik je in hjet dashboard op cocktails, hier zal een zoekbalk tevoorschijn komen waar je, jou favoriete cocktail kunt toevoegen.

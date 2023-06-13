@@ -10,9 +10,8 @@ function Favorite() {
     const token = localStorage.getItem("authToken");
     const [imageURLs, setImageURLs] = useState([]);
     const [cocktailIds, setCocktailIds] = useState([]);
-    const [cocktailNames, setCocktailNames] = useState([])
+    const [cocktailNames, setCocktailNames] = useState([]);
     const navigate = useNavigate();
-
 
     const screenWidth = window.innerWidth;
     let resultsPerPage = 9;
@@ -21,7 +20,6 @@ function Favorite() {
     }
 
     const totalPages = Math.ceil(cocktailIds.length / resultsPerPage);
-
 
     const [currentPage, setCurrentPage] = useState(1);
     const start = (currentPage - 1) * resultsPerPage;
@@ -33,7 +31,6 @@ function Favorite() {
     const handlePrevPage = () => {
         setCurrentPage(currentPage - 1);
     };
-
 
     useEffect(() => {
         const getFavorites = async () => {
@@ -68,8 +65,6 @@ function Favorite() {
         setImageURLs(favorites.map((cocktail) => cocktail.strDrinkThumb));
         setCocktailNames(favorites.map((cocktail) => cocktail.strDrink));
     }, [favorites]);
-
-
 
     const handleReceptClick = async (id) => {
         try {
@@ -106,15 +101,12 @@ function Favorite() {
         }
     };
 
-
-
-
     return (
         <div className="container-favorite">
             <h1>Favorieten</h1>
             <div className="images-cocktails-favorite">
                 {favorites.slice(start, end).map((favorite) => (
-                    <div className="images-cocktails-favorite">
+                    <div className="images-cocktails-favorite" key={favorite.idDrink}>
                         <img onClick={() => handleReceptClick(favorite.idDrink)} src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
                         <div onClick={() => handleReceptClick(favorite.idDrink)} className="cocktail-name-favorite ">
                             <p>{favorite.strDrink}</p>
@@ -131,8 +123,7 @@ function Favorite() {
                 )}
             </div>
         </div>
-    )
-
+    );
 }
 
 export default Favorite;
