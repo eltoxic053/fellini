@@ -1,39 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { AuthContext } from '../../Context/AuthContext';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import "./Navbar.css";
+import './Navbar.css';
 import fellini from '../../assets/fellini.jpg';
 import search from '../../assets/search.jpg';
 
-const Navbar = ({ isAuthenticated, onLogout }) => {
+const Navbar = () => {
+    const { isLoggedIn } = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
-    const [error, setError] = useState(null);
     const [popupVisible, setPopupVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const token = localStorage.getItem('authToken');
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token) {
-            setError("No authentication token available");
-            return;
-        }
-
-        axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 setUserData(response.data);
                 console.log(response);
-            })
-            .catch(error => {
-                setError("Error retrieving user data");
+            } catch (error) {
                 console.error(error);
-            });
+            }
+        };
+
+        fetchData();
     }, [token]);
+
 
     const handleSearch = async () => {
         if (searchTerm.trim() !== '') {
@@ -44,7 +43,7 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
                 const cocktails = response.data.drinks || [];
                 const queryParams = new URLSearchParams();
                 queryParams.append('searchTerm', searchTerm.trim());
-                cocktails.forEach(cocktail => {
+                cocktails.forEach((cocktail) => {
                     queryParams.append('names[]', cocktail.strDrink);
                     queryParams.append('thumbnails[]', cocktail.strDrinkThumb);
                     queryParams.append('id[]', cocktail.idDrink);
@@ -77,27 +76,36 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
             <div className="navbar-logo">
                 <img src={fellini} alt="logo" />
             </div>
-            {isAuthenticated && (
+            {isLoggedIn && userData && (
                 <>
                     <img src={search} alt="search" className="search-icon" onClick={handlePopupClick} />
                     {popupVisible && (
                         <div className="popup-container" onClick={handlePopupClose}>
                             <div className="popup" onClick={(e) => e.stopPropagation()}>
-                                <input className="popup-search" type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
-                                <button className='popup-button' onClick={handleSearch}>Search</button>
+                                <input
+                                    className="popup-search"
+                                    type="text"
+                                    placeholder="Search"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onKeyPress={handleKeyPress}
+                                />
+                                <button className="popup-button" onClick={handleSearch}>
+                                    Search
+                                </button>
                             </div>
                         </div>
                     )}
-                    {userData && (
-                        <div className="navbar-profile-image">
-                            {error && <div className="error-message">{error}</div>}
-                            <Link to="/userProfile">
-                                <div className="profile-image-circle" style={{ backgroundColor: userData.profilePicture ? 'transparent' : '#ccc' }}>
-                                    {userData.profilePicture ? <img src={userData.profilePicture} alt="profile" /> : null}
-                                </div>
-                            </Link>
-                        </div>
-                    )}
+                    <div className="navbar-profile-image">
+                        <Link to="/userProfile">
+                            <div
+                                className="profile-image-circle"
+                                style={{ backgroundColor: userData.profilePicture ? 'transparent' : '#ccc' }}
+                            >
+                                {userData.profilePicture ? <img src={userData.profilePicture} alt="profile" /> : null}
+                            </div>
+                        </Link>
+                    </div>
                 </>
             )}
         </nav>

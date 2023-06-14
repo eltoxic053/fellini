@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './App.css';
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './Context/AuthContext';
 import LoginPage from '../src/pages/login/Login';
 import Navbar from "./components/Navbar/Navbar";
@@ -28,6 +28,7 @@ function App() {
         <div>
             <BrowserRouter>
                 <AuthProvider>
+                    <Navbar/>
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
                         <Route path="/main-menu" element={<MainMenu />} />
