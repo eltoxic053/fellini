@@ -5,14 +5,15 @@ import {AuthContext} from "../../Context/AuthContext";
 import "./favorite.css";
 import solidleft from "../../assets/solidleft.png";
 import solidright from "../../assets/solidright.png";
+import { useNavigate } from 'react-router-dom';
 
 function Favorite() {
     const [favorites, setFavorites] = useState([]);
     const token = localStorage.getItem("authToken");
     const [imageURLs, setImageURLs] = useState([]);
     const [cocktailIds, setCocktailIds] = useState([]);
-    const [cocktailNames, setCocktailNames] = useState([])
-
+    const [cocktailNames, setCocktailNames] = useState([]);
+    const navigate = useNavigate();
 
     const screenWidth = window.innerWidth;
     let resultsPerPage = 9;
@@ -21,7 +22,6 @@ function Favorite() {
     }
 
     const totalPages = Math.ceil(cocktailIds.length / resultsPerPage);
-
 
     const [currentPage, setCurrentPage] = useState(1);
     const start = (currentPage - 1) * resultsPerPage;
@@ -34,51 +34,74 @@ function Favorite() {
         setCurrentPage(currentPage - 1);
     };
 
-
     useEffect(() => {
-        const getFavorites = () => {
-            axios
-                .get("https://frontend-educational-backend.herokuapp.com/api/user", {
+        const getFavorites = async () => {
+            try {
+                const response = await axios.get("https://frontend-educational-backend.herokuapp.com/api/user", {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                })
-                .then((response) => {
-                    const userInfo = atob(response.data.info);
-                    const ids = userInfo.split(",").map((id) => id.replace(/\D/g, ""));
-                    const promises = ids.map((id) =>
-                        axios.get(
-                            `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
-                        )
-                    );
-
-                    Promise.all(promises)
-                        .then((responses) => {
-                            const favoritesData = responses.map(
-                                (response) => response.data.drinks[0]
-                            );
-                            setFavorites(favoritesData);
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
-                })
-                .catch((error) => {
-                    console.log(error);
                 });
+
+                const userInfo = atob(response.data.info);
+                const ids = userInfo.split(",").map((id) => id.replace(/\D/g, ""));
+                const promises = ids.map((id) =>
+                    axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+                );
+
+                const responses = await Promise.all(promises);
+                const favoritesData = responses.map((response) => response.data.drinks[0]);
+                setFavorites(favoritesData);
+            } catch (error) {
+                console.error(error);
+            }
         };
 
         getFavorites();
     }, [token]);
 
     useEffect(() => {
-        const ids = favorites.map(cocktail => cocktail.idDrink);
+        const ids = favorites.map((cocktail) => cocktail.idDrink);
         setCocktailIds(ids);
-        setImageURLs(favorites.map(cocktail => cocktail.strDrinkThumb));
-        setCocktailNames(favorites.map(cocktail => cocktail.strDrink));
-    }, [favorites])
+        setImageURLs(favorites.map((cocktail) => cocktail.strDrinkThumb));
+        setCocktailNames(favorites.map((cocktail) => cocktail.strDrink));
+    }, [favorites]);
 
+    const handleReceptClick = async (id) => {
+        try {
+            const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+            console.log(response);
+            const cocktail = response.data.drinks[0];
+            console.log(response.data);
+            const cocktailDetails = {
+                name: cocktail.strDrink,
+                instructions: cocktail.strInstructions,
+                ingredients: [],
+            };
+
+            for (let i = 1; i <= 15; i++) {
+                const ingredient = cocktail[`strIngredient${i}`];
+                const measure = cocktail[`strMeasure${i}`];
+
+                if (ingredient && measure) {
+                    cocktailDetails.ingredients.push({ ingredient, measure });
+                }
+            }
+
+            const queryParams = new URLSearchParams();
+            queryParams.append('name', cocktailDetails.name);
+            queryParams.append('instructions', cocktailDetails.instructions);
+            queryParams.append('strDrinkThumb', cocktail.strDrinkThumb);
+            cocktailDetails.ingredients.forEach((ingredient, index) => {
+                queryParams.append(`ingredient${index + 1}`, `${ingredient.ingredient} - ${ingredient.measure}`);
+            });
+
+            navigate(`/recept?id=${id}&${queryParams.toString()}`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const { isLoggedIn } = useContext(AuthContext);
     if (!isLoggedIn) {
@@ -90,9 +113,9 @@ function Favorite() {
             <h1>Favorieten</h1>
             <div className="images-cocktails-favorite">
                 {favorites.slice(start, end).map((favorite) => (
-                    <div className="images-cocktails-favorite">
-                        <img src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
-                        <div className="cocktail-name-favorite ">
+                    <div className="images-cocktails-favorite" key={favorite.idDrink}>
+                        <img onClick={() => handleReceptClick(favorite.idDrink)} src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
+                        <div onClick={() => handleReceptClick(favorite.idDrink)} className="cocktail-name-favorite ">
                             <p>{favorite.strDrink}</p>
                         </div>
                     </div>
@@ -107,8 +130,7 @@ function Favorite() {
                 )}
             </div>
         </div>
-    )
-
+    );
 }
 
 export default Favorite;
