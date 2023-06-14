@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Navbar.css";
 import fellini from '../../assets/fellini.jpg';
 import search from '../../assets/search.jpg';
@@ -11,6 +11,7 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
     const [popupVisible, setPopupVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const token = localStorage.getItem('authToken');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!token) {
@@ -34,25 +35,26 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
             });
     }, [token]);
 
-    const handleSearch = () => {
+    const handleSearch = async () => {
         if (searchTerm.trim() !== '') {
-            axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm.trim()}`)
-                .then(response => {
-                    const cocktails = response.data.drinks || [];
-                    const queryParams = new URLSearchParams();
-                    queryParams.append('searchTerm', searchTerm.trim());
-                    cocktails.forEach(cocktail => {
-                        queryParams.append('names[]', cocktail.strDrink);
-                        queryParams.append('thumbnails[]', cocktail.strDrinkThumb);
-                        queryParams.append('id[]', cocktail.idDrink);
-                    });
-                    window.location.href = `/SearchResultsPage?${queryParams.toString()}`;
-                    setSearchTerm('');
-                    setPopupVisible(false);
-                })
-                .catch(error => {
-                    console.error(error);
+            try {
+                const response = await axios.get(
+                    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm.trim()}`
+                );
+                const cocktails = response.data.drinks || [];
+                const queryParams = new URLSearchParams();
+                queryParams.append('searchTerm', searchTerm.trim());
+                cocktails.forEach(cocktail => {
+                    queryParams.append('names[]', cocktail.strDrink);
+                    queryParams.append('thumbnails[]', cocktail.strDrinkThumb);
+                    queryParams.append('id[]', cocktail.idDrink);
                 });
+                navigate(`/searchresultspage?${queryParams.toString()}`);
+                setSearchTerm('');
+                setPopupVisible(false);
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
 
