@@ -95,7 +95,7 @@ function MijnBar() {
             <div className="images-cocktails-standard">
                 {cocktailIds.slice(start, end).map((id, index) => (
                     <div className="images-cocktails-standard" key={id}>
-                        <img src={imageURLs[start + index]} alt="Cocktail" onClick={() => handleClick(id)} />
+                        <img  src={imageURLs[start + index]} alt="Cocktail" onClick={() => handleClick(id)} />
                         <div className="cocktail-name-standard" onClick={() => handleClick(id)}>
                             <p>{cocktailNames[start + index]}</p>
                         </div>
@@ -104,7 +104,7 @@ function MijnBar() {
             </div>
             <div className="pagination">
                 {currentPage > 1 && (
-                    <img src={solidleft} alt="Cocktail" onClick={handlePrevPage} />
+                    <img  src={solidleft} alt="Cocktail" onClick={handlePrevPage} />
                 )}
                 {currentPage < totalPages && (
                     <img src={solidright} alt="Cocktail" onClick={handleNextPage} />

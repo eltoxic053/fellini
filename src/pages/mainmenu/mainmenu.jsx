@@ -77,8 +77,8 @@ function MainMenu() {
     const renderCocktailGrid = (cocktailList, start, end) => {
         return cocktailList.slice(start, end).map((cocktail, index) => (
             <div className="image" key={index}>
-                <img src={cocktail.strDrinkThumb} alt="Cocktail" onClick={() => handleClick(cocktail.idDrink)} />
-                <p onClick={() => handleClick(cocktail.idDrink)}>{cocktail.strDrink}</p>
+                <img   src={cocktail.strDrinkThumb} alt="Cocktail" onClick={() => handleClick(cocktail.idDrink)} />
+                <p   onClick={() => handleClick(cocktail.idDrink)}>{cocktail.strDrink}</p>
             </div>
         ));
     };

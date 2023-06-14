@@ -52,7 +52,7 @@ const LoginPage = () => {
                             />
                         </div>
                         <div className="button-container">
-                            <button className="login-button" onClick={handleLogin}>
+                            <button type="submit" className="login-button" onClick={handleLogin}>
                                 Login
                             </button>
                         </div>

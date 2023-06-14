@@ -90,7 +90,7 @@ const Navbar = () => {
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onKeyPress={handleKeyPress}
                                 />
-                                <button className="popup-button" onClick={handleSearch}>
+                                <button className="popup-button" type="submit"  onClick={handleSearch}>
                                     Search
                                 </button>
                             </div>
@@ -102,7 +102,7 @@ const Navbar = () => {
                                 className="profile-image-circle"
                                 style={{ backgroundColor: userData.profilePicture ? 'transparent' : '#ccc' }}
                             >
-                                {userData.profilePicture ? <img src={userData.profilePicture} alt="profile" /> : null}
+                                {userData.profilePicture ? <img   src={userData.profilePicture} alt="profile" /> : null}
                             </div>
                         </Link>
                     </div>
