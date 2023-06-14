@@ -1,3 +1,6 @@
+.clickable {
+    cursor: pointer;
+}
 .container-favorite{
     border-radius: 30px;
     color: white;
@@ -36,6 +39,7 @@
 
 .cocktail-name-favorite{
     width: 106px;
+    cursor: pointer;
     margin-top: 20px;
     align-items: center;
     margin-left: 30px;
@@ -43,6 +47,9 @@
     font-size: 1.2rem;
 }
 
+.pagination{
+    cursor: pointer;
+}
 .pagination button{
     border-radius: 100%;
 

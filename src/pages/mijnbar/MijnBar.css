@@ -28,6 +28,7 @@
 }
 
 .container {
+    cursor: pointer;
     border-radius: 30px;
     color: white;
     width: 1020px;
