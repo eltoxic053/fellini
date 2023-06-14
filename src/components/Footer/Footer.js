@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Footer.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthContext';
 
-const Footer = ({ isAuthenticated, onLogout }) => {
+const Footer = () => {
+    const navigate = useNavigate();
+    const { logout } = useContext(AuthContext);
 
     const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        onLogout();
+        logout();
+        navigate('/');
     };
 
     return (
