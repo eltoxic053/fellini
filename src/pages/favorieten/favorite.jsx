@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import axios from "axios";
+import {Navigate} from 'react-router-dom'
+import {AuthContext} from "../../Context/AuthContext";
 import "./favorite.css";
 import solidleft from "../../assets/solidleft.png";
 import solidright from "../../assets/solidright.png";
@@ -77,6 +79,11 @@ function Favorite() {
         setCocktailNames(favorites.map(cocktail => cocktail.strDrink));
     }, [favorites])
 
+
+    const { isLoggedIn } = useContext(AuthContext);
+    if (!isLoggedIn) {
+        return <Navigate to="/" />;
+    }
 
     return (
         <div className="container-favorite">

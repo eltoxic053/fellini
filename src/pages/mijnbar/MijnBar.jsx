@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios, {all} from 'axios';
+import React, {useState, useEffect, useContext} from 'react';
+import axios from 'axios';
+import {Navigate} from 'react-router-dom'
+import {AuthContext} from "../../Context/AuthContext";
+import './MijnBar.css';
 import solidleft from '../../assets/solidleft.png'
 import solidright from '../../assets/solidright.png'
-import { Link } from 'react-router-dom'
-import './MijnBar.css';
+
 function MijnBar() {
 
 
@@ -85,6 +87,13 @@ function MijnBar() {
                 console.log(error);
             });
     }, []);
+
+
+    const { isLoggedIn } = useContext(AuthContext);
+    if (!isLoggedIn) {
+        return <Navigate to="/" />;
+    }
+
     return (
         <div className="container">
             <h1>Standaard menu kaart</h1>

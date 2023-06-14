@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import "./SearchResultsPage.css";
-import { useLocation } from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
+
 import axios from "axios";
 import solidleft from "../../assets/solidleft.png";
 import solidright from "../../assets/solidright.png";
+import {AuthContext} from "../../Context/AuthContext";
 
 const SearchResultsPage = () => {
     const location = useLocation();
@@ -62,6 +64,11 @@ const SearchResultsPage = () => {
             });
     }
 
+
+    const { isLoggedIn } = useContext(AuthContext);
+    if (!isLoggedIn) {
+        return <Navigate to="/" />;
+    }
 
     return (
         <div className="search-results">

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
-import { LoginProvider, useLoginContext, LoginPage } from "./pages/login/Login";
+import { AuthProvider } from './Context/AuthContext';
+import LoginPage from '../src/pages/login/Login';
 import Navbar from "./components/Navbar/Navbar";
 import MainMenu from "./pages/mainmenu/mainmenu";
 import Recept from "./pages/recept/recept";
@@ -39,7 +40,7 @@ function App() {
         <div>
             <BrowserRouter>
                 <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
-                <LoginProvider>
+                <AuthProvider>
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
                         <Route path="/main-menu" element={<MainMenu />} />
@@ -49,7 +50,7 @@ function App() {
                         <Route path="/userProfile" element={<UserProfile />} />
                         <Route path="/Favorieten" element={<Favorite />} />
                     </Routes>
-                </LoginProvider>
+                </AuthProvider>
                 {isAuthenticated && <Footer />}
             </BrowserRouter>
         </div>
