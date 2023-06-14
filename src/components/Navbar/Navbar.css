@@ -20,6 +20,7 @@
     height: 100%;
 }
 .search-icon {
+    cursor: pointer;
     width: 80px;
     height: 60px;
     position: absolute;
@@ -81,6 +82,7 @@
 }
 
 .popup-button{
+    cursor: pointer;
     font-weight: bold;
     margin-left: 10px;
     width: 100px;

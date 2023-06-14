@@ -1,5 +1,4 @@
 .search-results {
-    cursor: pointer;
     position: absolute;
     color: white;
     background-color: #6C6C6C;
@@ -30,6 +29,7 @@
 }
 
 .search-image {
+    cursor: pointer;
     max-width: 100%;
     height: auto;
 }
@@ -61,6 +61,7 @@
 }
 
 .pagination button {
+    cursor: pointer;
     margin: 0 10px;
 }
 .favorite-cocktail-userprofile{
