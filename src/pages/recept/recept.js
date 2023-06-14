@@ -1,8 +1,11 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, {useContext} from 'react';
+import { useLocation, Navigate } from 'react-router-dom';
+import {AuthContext} from "../../Context/AuthContext";
 import './recept.css';
 
 function Recept() {
+
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
@@ -16,6 +19,11 @@ function Recept() {
         if (ingredient) {
             ingredients.push(ingredient);
         }
+    }
+
+    const { isLoggedIn } = useContext(AuthContext);
+    if (!isLoggedIn) {
+        return <Navigate to="/" />;
     }
 
     return (
