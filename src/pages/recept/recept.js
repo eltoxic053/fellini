@@ -1,11 +1,9 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
-import {AuthContext} from "../../Context/AuthContext";
+import { AuthContext } from "../../Context/AuthContext";
 import './recept.css';
 
 function Recept() {
-
-
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
@@ -14,12 +12,11 @@ function Recept() {
     const thumbnail = queryParams.get('strDrinkThumb');
 
     const ingredients = [];
-    for (let i = 1; i <= 15; i++) {
-        const ingredient = queryParams.get(`ingredient${i}`);
-        if (ingredient) {
-            ingredients.push(ingredient);
+    queryParams.forEach((value, key) => {
+        if (key.startsWith('ingredient')) {
+            ingredients.push(value);
         }
-    }
+    });
 
     const { isLoggedIn } = useContext(AuthContext);
     if (!isLoggedIn) {
@@ -36,7 +33,7 @@ function Recept() {
                     <h2>Ingredients:</h2>
                     <ul>
                         {ingredients.map((ingredient, index) => (
-                            <li key={index}>{ingredient}</li>
+                            <li key={`${ingredient}-${index}`}>{ingredient}</li>
                         ))}
                     </ul>
                 </div>
