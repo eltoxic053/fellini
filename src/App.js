@@ -46,9 +46,9 @@ function App() {
                         <Route path="/main-menu" element={<MainMenu />} />
                         <Route path="/recept" element={<Recept />} />
                         <Route path="/mijn-bar" element={<MijnBar />} />
-                        <Route path="/SearchResultsPage" element={<SearchResultsPage />} />
-                        <Route path="/userProfile" element={<UserProfile />} />
-                        <Route path="/Favorieten" element={<Favorite />} />
+                        <Route path="/searchresultspage" element={<SearchResultsPage />} />
+                        <Route path="/userprofile" element={<UserProfile />} />
+                        <Route path="/favorieten" element={<Favorite />} />
                     </Routes>
                 </AuthProvider>
                 {isAuthenticated && <Footer />}
