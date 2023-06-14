@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import {Navigate} from 'react-router-dom'
-import {AuthContext} from "../../Context/AuthContext";
+import { Navigate } from 'react-router-dom';
+import { AuthContext } from "../../Context/AuthContext";
 import "./favorite.css";
 import solidleft from "../../assets/solidleft.png";
 import solidright from "../../assets/solidright.png";
@@ -114,8 +114,8 @@ function Favorite() {
             <div className="images-cocktails-favorite">
                 {favorites.slice(start, end).map((favorite) => (
                     <div className="images-cocktails-favorite" key={favorite.idDrink}>
-                        <img onClick={() => handleReceptClick(favorite.idDrink)} src={favorite.strDrinkThumb} alt={favorite.strDrink}/>
-                        <div onClick={() => handleReceptClick(favorite.idDrink)} className="cocktail-name-favorite ">
+                        <img  onClick={() => handleReceptClick(favorite.idDrink)} src={favorite.strDrinkThumb} alt={favorite.strDrink} className="clickable"/>
+                        <div  onClick={() => handleReceptClick(favorite.idDrink)} className="cocktail-name-favorite ">
                             <p>{favorite.strDrink}</p>
                         </div>
                     </div>

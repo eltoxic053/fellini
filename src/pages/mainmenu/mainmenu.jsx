@@ -9,9 +9,7 @@ function MainMenu() {
 
     const handleClick = async (id) => {
         try {
-            const response = await axios.get(
-                `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
-            );
+            const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
             const cocktail = response.data.drinks[0];
             const cocktailDetails = {
                 name: cocktail.strDrink,
@@ -33,10 +31,7 @@ function MainMenu() {
             queryParams.append('instructions', cocktailDetails.instructions);
             queryParams.append('strDrinkThumb', cocktail.strDrinkThumb);
             cocktailDetails.ingredients.forEach((ingredient, index) => {
-                queryParams.append(
-                    `ingredient${index + 1}`,
-                    `${ingredient.ingredient} - ${ingredient.measure}`
-                );
+                queryParams.append(`ingredient${index + 1}`, `${ingredient.ingredient} - ${ingredient.measure}`);
             });
 
             window.location.href = `/recept?id=${id}&${queryParams.toString()}`;
@@ -56,9 +51,7 @@ function MainMenu() {
     };
 
     useEffect(() => {
-        const randomCocktailUrls = Array.from({ length: 5 }, () =>
-            'https://www.thecocktaildb.com/api/json/v1/1/random.php'
-        );
+        const randomCocktailUrls = Array.from({ length: 5 }, () => 'https://www.thecocktaildb.com/api/json/v1/1/random.php');
         const iconicCocktailUrls = [
             'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11117',
             'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11009',
@@ -72,17 +65,23 @@ function MainMenu() {
             'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=17212',
         ];
 
-        fetchData([
-            ...randomCocktailUrls,
-            ...iconicCocktailUrls,
-            ...classicCocktailUrls,
-        ]);
+        fetchData([...randomCocktailUrls, ...iconicCocktailUrls, ...classicCocktailUrls]);
     }, []);
 
     const { isLoggedIn } = useContext(AuthContext);
+
     if (!isLoggedIn) {
         return <Navigate to="/" />;
     }
+
+    const renderCocktailGrid = (cocktailList, start, end) => {
+        return cocktailList.slice(start, end).map((cocktail, index) => (
+            <div className="image" key={index}>
+                <img   src={cocktail.strDrinkThumb} alt="Cocktail" onClick={() => handleClick(cocktail.idDrink)} />
+                <p   onClick={() => handleClick(cocktail.idDrink)}>{cocktail.strDrink}</p>
+            </div>
+        ));
+    };
 
     return (
         <div className="mainmenu">
@@ -90,34 +89,19 @@ function MainMenu() {
                 <h1>Cocktails to discover</h1>
             </div>
             <div className="mainmenu-grid-container">
-                {cocktails.slice(0, 5).map((cocktail, index) => (
-                    <div className="images-cocktails" key={index}>
-                        <img src={cocktail.strDrinkThumb} alt="Cocktail" onClick={() => handleClick(cocktail.idDrink)} />
-                        <p onClick={() => handleClick(cocktail.idDrink)}>{cocktail.strDrink}</p>
-                    </div>
-                ))}
+                {renderCocktailGrid(cocktails, 0, 5)}
             </div>
             <div className="main-grid-container-classic-iconic">
                 <div className="container-classic">
                     <h2 className="title-classic">Classic cocktails</h2>
                     <div className="images-row-classic">
-                        {cocktails.slice(5, 9).map((cocktail, index) => (
-                            <div className="image" key={index}>
-                                <img src={cocktail.strDrinkThumb} alt="Cocktail" onClick={() => handleClick(cocktail.idDrink)} />
-                                <p onClick={() => handleClick(cocktail.idDrink)}>{cocktail.strDrink}</p>
-                            </div>
-                        ))}
+                        {renderCocktailGrid(cocktails, 5, 9)}
                     </div>
                 </div>
                 <div className="container-iconic">
                     <h2 className="title-iconic">Iconic cocktails</h2>
                     <div className="images-row-iconic">
-                        {cocktails.slice(9, 13).map((cocktail, index) => (
-                            <div className="image" key={index}>
-                                <img src={cocktail.strDrinkThumb} alt="Cocktail" onClick={() => handleClick(cocktail.idDrink)} />
-                                <p onClick={() => handleClick(cocktail.idDrink)}>{cocktail.strDrink}</p>
-                            </div>
-                        ))}
+                        {renderCocktailGrid(cocktails, 9, 13)}
                     </div>
                 </div>
             </div>

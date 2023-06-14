@@ -1,4 +1,5 @@
 .images-cocktails-standard {
+    cursor: pointer;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -46,6 +47,7 @@
 }
 
 .pagination button{
+    cursor: pointer;
     border-radius: 100%;
 
 }

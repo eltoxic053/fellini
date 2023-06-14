@@ -1,11 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import "./SearchResultsPage.css";
-import {Navigate, useLocation} from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import axios from "axios";
 import solidleft from "../../assets/solidleft.png";
 import solidright from "../../assets/solidright.png";
-import {AuthContext} from "../../Context/AuthContext";
+import { AuthContext } from "../../Context/AuthContext";
 
 const SearchResultsPage = () => {
     const location = useLocation();
@@ -64,7 +64,6 @@ const SearchResultsPage = () => {
             });
     }
 
-
     const { isLoggedIn } = useContext(AuthContext);
     if (!isLoggedIn) {
         return <Navigate to="/" />;
@@ -75,17 +74,20 @@ const SearchResultsPage = () => {
             <div className="header">
                 <h1>Zoek resultaten: {searchTerm}</h1>
             </div>
-            <div className="grid-container">
-                {names.slice(start, end).map((name, index) => (
-                    <div key={index} >
-                        <h2>{name}</h2>
-                        <div className="search-image">
-                            <img src={thumbnails[index]} alt={name} onClick={() => handleClick(ids[index])} />
+            {names.length === 0 ? (
+                <div className="no-results">Geen resultaten gevonden</div>
+            ) : (
+                <div className="grid-container">
+                    {names.slice(start, end).map((name, index) => (
+                        <div key={index} >
+                            <h2>{name}</h2>
+                            <div className="search-image">
+                                <img src={thumbnails[index]} alt={name} onClick={() => handleClick(ids[index])} />
+                            </div>
                         </div>
-                    </div>
-                ))}
-
-            </div>
+                    ))}
+                </div>
+            )}
             <div className="pagination">
                 {currentPage > 1 && (
                     <img src={solidleft} alt="Cocktail" onClick={handlePrevPage} />
