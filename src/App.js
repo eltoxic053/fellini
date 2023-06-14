@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './Context/AuthContext';
+import { AuthProvider, AuthContext } from './Context/AuthContext';
 import LoginPage from '../src/pages/login/Login';
 import Navbar from "./components/Navbar/Navbar";
 import MainMenu from "./pages/mainmenu/mainmenu";
@@ -14,32 +14,19 @@ import UserProfile from "./pages/userprofile/userProfile";
 import Favorite from "./pages/favorieten/favorite";
 
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(
-        !!localStorage.getItem('authToken')
-    );
 
-    const handleAuthentication = (accessToken) => {
-        localStorage.setItem('authToken', accessToken);
-        setIsAuthenticated(true);
-    };
+    function AuthenticatedFooter() {
+        const { isLoggedIn } = useContext(AuthContext);
 
-    const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        setIsAuthenticated(false);
-    };
-
-    const LoginRequiredPage = () => {
-        return (
-            <div>
-                <Navigate to="/" />
-            </div>
-        );
-    };
-
+        if (isLoggedIn) {
+            return <Footer />;
+        } else {
+            return null;
+        }
+    }
     return (
         <div>
             <BrowserRouter>
-                <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
                 <AuthProvider>
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
@@ -50,11 +37,13 @@ function App() {
                         <Route path="/userProfile" element={<UserProfile />} />
                         <Route path="/Favorieten" element={<Favorite />} />
                     </Routes>
+                    <AuthenticatedFooter />
                 </AuthProvider>
-                {isAuthenticated && <Footer />}
             </BrowserRouter>
         </div>
     );
 }
+
+
 
 export default App;
