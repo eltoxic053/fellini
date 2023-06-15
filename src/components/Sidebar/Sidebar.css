@@ -24,6 +24,7 @@
 }
 
 .sidebar-right {
+    border: solid 1px black;
     position: absolute;
     top: 70px;
     right: 10px;
