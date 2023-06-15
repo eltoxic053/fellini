@@ -1,7 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef  } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
+import Menu from "../Sidebar/Sidebar";
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import fellini from '../../assets/fellini.jpg';
 import search from '../../assets/search.jpg';
@@ -32,7 +33,6 @@ const Navbar = () => {
 
         fetchData();
     }, [token]);
-
 
     const handleSearch = async () => {
         if (searchTerm.trim() !== '') {
@@ -71,6 +71,28 @@ const Navbar = () => {
         setPopupVisible(false);
     };
 
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const menuRef = useRef(null);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setIsMenuOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <nav className="navbar">
             <div className="navbar-logo">
@@ -90,21 +112,19 @@ const Navbar = () => {
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onKeyPress={handleKeyPress}
                                 />
-                                <button className="popup-button" type="submit"  onClick={handleSearch}>
+                                <button className="popup-button" type="submit" onClick={handleSearch}>
                                     Search
                                 </button>
                             </div>
                         </div>
                     )}
-                    <div className="navbar-profile-image">
-                        <Link to="/userProfile">
-                            <div
-                                className="profile-image-circle"
-                                style={{ backgroundColor: userData.profilePicture ? 'transparent' : '#ccc' }}
-                            >
-                                {userData.profilePicture ? <img   src={userData.profilePicture} alt="profile" /> : null}
-                            </div>
-                        </Link>
+                    <div className="navbar-profile-image"  onClick={toggleMenu}>
+                        <div className="profile-image-circle" style={{ backgroundColor: userData.profilePicture ? 'transparent' : '#ccc' }}>
+                            {userData.profilePicture ? <img src={userData.profilePicture} alt="profile" /> : null}
+                        </div>
+                        <div ref={menuRef}>
+                            {isMenuOpen && <Menu position="right" />}
+                        </div>
                     </div>
                 </>
             )}
