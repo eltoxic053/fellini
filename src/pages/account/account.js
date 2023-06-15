@@ -3,7 +3,7 @@ import editprofile from "../../assets/editprofile.jpg";
 import './account.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import axios from "axios";
-import AccountInfo from "../../components/accountinfo/accountInfo";
+import AccountInfo from "../../components/Accountinfo/accountInfo";
 
 const Account = () => {
     const [password, setPassword] = useState("");
