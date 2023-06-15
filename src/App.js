@@ -9,9 +9,11 @@ import Recept from "./pages/recept/recept";
 import MijnBar from "./pages/mijnbar/MijnBar";
 import Footer from "./components/Footer/Footer";
 import SearchResultsPage from "./pages/SearchResultsPage/SearchResultsPage";
+import Account from "./pages/account/account";
 import Registration from "./pages/registration/registration";
 import UserProfile from "./pages/userprofile/userProfile";
 import Favorite from "./pages/favorieten/favorite";
+import Cocktail from "./pages/cocktail/cocktail";
 
 function App() {
 
@@ -37,6 +39,8 @@ function App() {
                         <Route path="/searchresultspage" element={<SearchResultsPage />} />
                         <Route path="/userprofile" element={<UserProfile />} />
                         <Route path="/favorieten" element={<Favorite />} />
+                        <Route path="/userprofile/account" element={<Account />} />
+                        <Route path="/userprofile/cocktails" element={<Cocktail/>} />
                     </Routes>
                     <AuthenticatedFooter />
                 </AuthProvider>

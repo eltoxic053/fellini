@@ -15,9 +15,12 @@ function Menu({ position }) {
         navigate('/userprofile/account')
     }
 
+    const cocktailClick = () => {
+        navigate('/userprofile/cocktails')
+    }
+
     return (
-        <div
-            className={`sidebar-container ${position === 'left' ? 'sidebar-left' : 'sidebar-right'}`}>
+        <div className={`sidebar-container ${position === 'left' ? 'sidebar-left' : 'sidebar-right'}`}>
             <ul>
                 <div className="dashboard-container">
                     <div className="menu-dashboard-1">
@@ -35,8 +38,8 @@ function Menu({ position }) {
                         </div>
                         <div className="menu-dashboard">
                             <div className="menu-group">
-                                <img className="menu-dashboard-home" src={martini} alt="user" />
-                                <p className="menu-user-label">Cocktails</p>
+                                <img onClick={cocktailClick}  className="menu-dashboard-home" src={martini} alt="user" />
+                                <p onClick={cocktailClick} className="menu-user-label">Cocktails</p>
                             </div>
                         </div>
                     </div>

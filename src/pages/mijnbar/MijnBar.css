@@ -46,6 +46,10 @@
     transform: translate(-50%, -50%);
 }
 
+.pagination{
+    margin-bottom: 15px;
+}
+
 .pagination button{
     cursor: pointer;
     border-radius: 100%;
