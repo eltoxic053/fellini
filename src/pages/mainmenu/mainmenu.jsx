@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 import axios from 'axios';
 import './mainmenu.css';
 
 function MainMenu() {
     const [cocktails, setCocktails] = useState([]);
+    const navigate = useNavigate();
 
     const handleClick = async (id) => {
         try {
@@ -34,7 +35,7 @@ function MainMenu() {
                 queryParams.append(`ingredient${index + 1}`, `${ingredient.ingredient} - ${ingredient.measure}`);
             });
 
-            window.location.href = `/recept?id=${id}&${queryParams.toString()}`;
+            navigate(`/recept?id=${id}&${queryParams.toString()}`);
         } catch (error) {
             console.log(error);
         }

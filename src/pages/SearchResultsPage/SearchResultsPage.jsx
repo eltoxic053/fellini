@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import "./SearchResultsPage.css";
-import { Navigate, useLocation } from 'react-router-dom';
-
+import {Navigate, useLocation, useNavigate} from 'react-router-dom';
 import axios from "axios";
 import solidleft from "../../assets/solidleft.png";
 import solidright from "../../assets/solidright.png";
@@ -17,7 +16,7 @@ const SearchResultsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const resultsPerPage = 5;
     const totalPages = Math.ceil(names.length / resultsPerPage);
-
+    const navigate = useNavigate();
     const handleNextPage = () => {
         setCurrentPage(currentPage + 1);
     };
@@ -29,40 +28,40 @@ const SearchResultsPage = () => {
     const start = (currentPage - 1) * resultsPerPage;
     const end = start + resultsPerPage;
 
-    const handleClick = (id) => {
-        axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-            .then(response => {
-                console.log(response);
-                const cocktail = response.data.drinks[0];
-                const cocktailDetails = {
-                    name: cocktail.strDrink,
-                    instructions: cocktail.strInstructions,
-                    ingredients: []
-                };
+    const handleClick = async (id) => {
+        try {
+            const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+            console.log(response);
+            const cocktail = response.data.drinks[0];
+            const cocktailDetails = {
+                name: cocktail.strDrink,
+                instructions: cocktail.strInstructions,
+                ingredients: []
+            };
 
-                for (let i = 1; i <= 15; i++) {
-                    const ingredient = cocktail[`strIngredient${i}`];
-                    const measure = cocktail[`strMeasure${i}`];
+            for (let i = 1; i <= 15; i++) {
+                const ingredient = cocktail[`strIngredient${i}`];
+                const measure = cocktail[`strMeasure${i}`];
 
-                    if (ingredient && measure) {
-                        cocktailDetails.ingredients.push({ ingredient, measure });
-                    }
+                if (ingredient && measure) {
+                    cocktailDetails.ingredients.push({ ingredient, measure });
                 }
+            }
 
-                const queryParams = new URLSearchParams();
-                queryParams.append('name', cocktailDetails.name);
-                queryParams.append('instructions', cocktailDetails.instructions);
-                queryParams.append('strDrinkThumb', cocktail.strDrinkThumb);
-                cocktailDetails.ingredients.forEach((ingredient, index) => {
-                    queryParams.append(`ingredient${index + 1}`, `${ingredient.ingredient} - ${ingredient.measure}`);
-                });
-
-                window.location.href = `/recept?id=${id}&${queryParams.toString()}`;
-            })
-            .catch(error => {
-                console.log(error);
+            const queryParams = new URLSearchParams();
+            queryParams.append('name', cocktailDetails.name);
+            queryParams.append('instructions', cocktailDetails.instructions);
+            queryParams.append('strDrinkThumb', cocktail.strDrinkThumb);
+            cocktailDetails.ingredients.forEach((ingredient, index) => {
+                queryParams.append(`ingredient${index + 1}`, `${ingredient.ingredient} - ${ingredient.measure}`);
             });
-    }
+
+            navigate(`/recept?id=${id}&${queryParams.toString()}`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     const { isLoggedIn } = useContext(AuthContext);
     if (!isLoggedIn) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import { AuthContext } from "../../Context/AuthContext";
 import './MijnBar.css';
 import solidleft from '../../assets/solidleft.png';
@@ -11,10 +11,9 @@ function MijnBar() {
     const [cocktailIds, setCocktailIds] = useState([]);
     const [cocktailNames, setCocktailNames] = useState([]);
     const cocktailIdsArray = [178325, 11000, 178336, 11202, 11117, 17196, 11009, 11004, 178357, 17204, 11728, 12362, 11936, 17242, 17207, 11008, 11113, 11006];
-
     const screenWidth = window.innerWidth;
     const resultsPerPage = screenWidth < 767 ? 3 : 9;
-
+    const navigate = useNavigate();
     const totalPages = Math.ceil(cocktailIdsArray.length / resultsPerPage);
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -77,7 +76,7 @@ function MijnBar() {
                     queryParams.append(`ingredient${index + 1}`, `${ingredient.ingredient} - ${ingredient.measure}`);
                 });
 
-                window.location.href = `/recept?id=${id}&${queryParams.toString()}`;
+                navigate(`/recept?id=${id}&${queryParams.toString()}`);
             })
             .catch(error => {
                 console.log(error);
