@@ -1,0 +1,28 @@
+.cocktails-form-1-middle {
+    color: white;
+    height: 100px;
+    width: 350px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #6D6A6A;
+    padding: 20px;
+}
+
+
+.popup-search{
+    width: 200px;
+    font-weight: bold;
+    border-radius: 10px;
+    height: 28px;
+    border: none;
+    font-size: 1rem;
+    color: #6C6C6C;
+    background-color: #f0f0f0;
+}

@@ -1,11 +1,28 @@
-import React, { useContext, useState, useEffect, useRef  } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
-import Menu from "../Sidebar/Sidebar";
+import Menu from '../Sidebar/Sidebar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import fellini from '../../assets/fellini.jpg';
-import search from '../../assets/search.jpg';
+import searchicon from '../../assets/search.jpg';
+import Search from '../Search/Search';
+
+const useClickOutside = (ref, callback) => {
+    const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+            callback();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [ref, callback]);
+};
 
 const Navbar = () => {
     const { isLoggedIn } = useContext(AuthContext);
@@ -14,6 +31,7 @@ const Navbar = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const token = localStorage.getItem('authToken');
     const navigate = useNavigate();
+    const searchRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,35 +52,6 @@ const Navbar = () => {
         fetchData();
     }, [token]);
 
-    const handleSearch = async () => {
-        if (searchTerm.trim() !== '') {
-            try {
-                const response = await axios.get(
-                    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm.trim()}`
-                );
-                const cocktails = response.data.drinks || [];
-                const queryParams = new URLSearchParams();
-                queryParams.append('searchTerm', searchTerm.trim());
-                cocktails.forEach((cocktail) => {
-                    queryParams.append('names[]', cocktail.strDrink);
-                    queryParams.append('thumbnails[]', cocktail.strDrinkThumb);
-                    queryParams.append('id[]', cocktail.idDrink);
-                });
-                navigate(`/searchresultspage?${queryParams.toString()}`);
-                setSearchTerm('');
-                setPopupVisible(false);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    };
-
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleSearch();
-        }
-    };
-
     const handlePopupClick = () => {
         setPopupVisible(true);
     };
@@ -71,27 +60,15 @@ const Navbar = () => {
         setPopupVisible(false);
     };
 
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
+
+    useClickOutside(searchRef, handlePopupClose);
+    useClickOutside(menuRef, () => setIsMenuOpen(false));
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-
-    const handleClickOutside = (event) => {
-        if (menuRef.current && !menuRef.current.contains(event.target)) {
-            setIsMenuOpen(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
 
     return (
         <nav className="navbar">
@@ -100,25 +77,13 @@ const Navbar = () => {
             </div>
             {isLoggedIn && userData && (
                 <>
-                    <img src={search} alt="search" className="search-icon" onClick={handlePopupClick} />
+                    <img src={searchicon} ref={searchRef} alt="search" className="search-icon" onClick={handlePopupClick} />
                     {popupVisible && (
-                        <div className="popup-container" onClick={handlePopupClose}>
-                            <div className="popup" onClick={(e) => e.stopPropagation()}>
-                                <input
-                                    className="popup-search"
-                                    type="text"
-                                    placeholder="Search"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    onKeyPress={handleKeyPress}
-                                />
-                                <button className="popup-button" type="submit" onClick={handleSearch}>
-                                    Search
-                                </button>
-                            </div>
+                        <div className="popup-container">
+                            <Search position="middle" />
                         </div>
                     )}
-                    <div className="navbar-profile-image"  onClick={toggleMenu}>
+                    <div className="navbar-profile-image" onClick={toggleMenu}>
                         <div className="profile-image-circle" style={{ backgroundColor: userData.profilePicture ? 'transparent' : '#ccc' }}>
                             {userData.profilePicture ? <img src={userData.profilePicture} alt="profile" /> : null}
                         </div>
