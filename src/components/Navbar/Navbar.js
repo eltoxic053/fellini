@@ -8,30 +8,14 @@ import fellini from '../../assets/fellini.jpg';
 import searchicon from '../../assets/search.jpg';
 import Search from '../Search/Search';
 
-const useClickOutside = (ref, callback) => {
-    const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-            callback();
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [ref, callback]);
-};
-
 const Navbar = () => {
+
     const { isLoggedIn } = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
     const [popupVisible, setPopupVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const token = localStorage.getItem('authToken');
     const navigate = useNavigate();
-    const searchRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,13 +46,30 @@ const Navbar = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
-
-    useClickOutside(searchRef, handlePopupClose);
-    useClickOutside(menuRef, () => setIsMenuOpen(false));
+    const searchRef = useRef(null);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+
+    const handleDocumentClick = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setIsMenuOpen(false);
+        }
+        if (searchRef.current && !searchRef.current.contains(event.target)) {
+            setPopupVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleDocumentClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleDocumentClick);
+        };
+    }, []);
+
 
     return (
         <nav className="navbar">
@@ -77,9 +78,9 @@ const Navbar = () => {
             </div>
             {isLoggedIn && userData && (
                 <>
-                    <img src={searchicon} ref={searchRef} alt="search" className="search-icon" onClick={handlePopupClick} />
+                    <img src={searchicon} alt="search" className="search-icon" onClick={handlePopupClick} />
                     {popupVisible && (
-                        <div className="popup-container">
+                        <div className="popup-container" ref={searchRef}>
                             <Search position="middle" />
                         </div>
                     )}
