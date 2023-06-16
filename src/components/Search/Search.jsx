@@ -53,7 +53,9 @@ const Search = ({ onSearch, position,  handlePopupClose }) => {
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleSearch();
-            handlePopupClose();
+            if (position === 'middle') {
+                handlePopupClose();
+            }
         }
     };
 
@@ -61,7 +63,11 @@ const Search = ({ onSearch, position,  handlePopupClose }) => {
         <div className={`search-form-1 ${position === 'middle' ? 'search-form-1-middle' : 'search-form-1-right'}`}>
                 <div className="popup">
                     <input className="search-input" type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
-                    <button className="button-search" onClick={() => {handleSearch(); handlePopupClose();
+                    <button className="button-search" onClick={() => {
+                        handleSearch();
+                        if (position === 'middle') {
+                            handlePopupClose();
+                        }
                     }}>Search</button>
             </div>
         </div>
