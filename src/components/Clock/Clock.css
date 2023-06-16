@@ -1,0 +1,31 @@
+.clock-container {
+    text-align: center;
+    margin-left: 50px;
+    margin-top: 30px;
+    height: 160px;
+    width: 265px;
+    background-color: #6C6C6C;
+    border-radius: 20px;
+}
+
+.clock-container h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.clock-container div {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.clock-container-right{
+    text-align: center;
+    margin-left: -330px;
+    margin-top: 220px;
+    height: 160px;
+    width: 265px;
+    background-color: #6C6C6C;
+    border-radius: 20px;
+}
