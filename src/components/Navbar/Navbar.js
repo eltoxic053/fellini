@@ -81,7 +81,7 @@ const Navbar = () => {
                     <img src={searchicon} alt="search" className="search-icon" onClick={handlePopupClick} />
                     {popupVisible && (
                         <div className="popup-container" ref={searchRef}>
-                            <Search position="middle" />
+                            <Search position="middle"  handlePopupClose={handlePopupClose} />
                         </div>
                     )}
                     <div className="navbar-profile-image" onClick={toggleMenu}>
