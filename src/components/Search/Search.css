@@ -1,19 +1,19 @@
-.cocktails-form-1-middle {
+.search-form-1-middle {
     color: white;
-    height: 100px;
-    width: 350px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10;
+    z-index: 99999;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
     display: flex;
     background-color: #6D6A6A;
     padding: 20px;
+    border: solid 1px black;
 }
+
 
 
 .popup-search{
@@ -25,4 +25,21 @@
     font-size: 1rem;
     color: #6C6C6C;
     background-color: #f0f0f0;
+}
+
+.search-form-1-right {
+    margin-left: 23px;
+    position: absolute;
+    width: 350px;
+    height: 120px;
+    top: 70px;
+    right: 0;
+    bottom: 0;
+    left: 870px;
+    z-index: 10;
+    background-color: #6C6C6C;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }

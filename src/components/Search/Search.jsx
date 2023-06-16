@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Search.css";
 import {useNavigate} from "react-router-dom";
 
-const Search = ({ onSearch, position }) => {
+const Search = ({ onSearch, position,  handlePopupClose }) => {
     const navigate = useNavigate()
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -53,14 +53,22 @@ const Search = ({ onSearch, position }) => {
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleSearch();
+            if (position === 'middle') {
+                handlePopupClose();
+            }
         }
     };
 
     return (
-        <div className={`cocktails-form-1 ${position === 'middle' ? 'cocktails-form-1-middle' : 'cocktails-form-1-right'}`}>
+        <div className={`search-form-1 ${position === 'middle' ? 'search-form-1-middle' : 'search-form-1-right'}`}>
                 <div className="popup">
                     <input className="search-input" type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onKeyPress={handleKeyPress} />
-                    <button className="button-search" onClick={handleSearch}>Search</button>
+                    <button className="button-search" onClick={() => {
+                        handleSearch();
+                        if (position === 'middle') {
+                            handlePopupClose();
+                        }
+                    }}>Search</button>
             </div>
         </div>
     );
