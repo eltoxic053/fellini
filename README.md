@@ -72,13 +72,14 @@ Om de API van TheCocktailDB te gebruiken, hoeft u geen afzonderlijke installatie
 
 Het enige dat je hoeft te doen, is de Fellini-applicatie starten volgens de eerder genoemde stappen en je kunt direct aan de slag met het zoeken en bekijken van cocktails.
 
-### `NPM commandos`
+### NPM commando's
 
-npm install: Installeert de afhankelijkheden van de applicatie.
-npm start: Start de ontwikkelserver en opent de webapplicatie in je standaard webbrowser.
-npm test: Voert de testen uit voor de applicatie.
-npm run build: Bouwt de productieversie van de applicatie.
-npm run lint: Voert een linter uit om de code op te schonen en te controleren op codeerstijl en mogelijke fouten.
-npm run format: Formatteert de code volgens de gedefinieerde codeerstijlrichtlijnen.
-npm run eject: Maakt het mogelijk om de interne configuratie en scripts van Create React App aan te passen.
-npm start:prod: Start de productieversie van de applicatie op een lokale server.
+- `npm install`: Installeert de afhankelijkheden van de applicatie.
+- `npm start`: Start de ontwikkelserver en opent de webapplicatie in je standaard webbrowser.
+- `npm test`: Voert de testen uit voor de applicatie.
+- `npm run build`: Bouwt de productieversie van de applicatie.
+- `npm run lint`: Voert een linter uit om de code op te schonen en te controleren op codeerstijl en mogelijke fouten.
+- `npm run format`: Formatteert de code volgens de gedefinieerde codeerstijlrichtlijnen.
+- `npm run eject`: Maakt het mogelijk om de interne configuratie en scripts van Create React App aan te passen.
+- `npm start:prod`: Start de productieversie van de applicatie op een lokale server.
+
