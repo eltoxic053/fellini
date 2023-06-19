@@ -30,10 +30,10 @@ Nu je de benodigde software hebt geïnstalleerd, kunnen we doorgaan met de insta
 Volg de onderstaande stappen:
 
 1. Open de terminal op je computer. Dit is de command line interface waarmee je commando's kunt geven aan je computer.
-2. Navigeer naar de map waar je de webapplicatie wilt opslaan. Gebruik hiervoor het "cd" commando, gevolgd door de naam van de map. Bijvoorbeeld: "cd Documents/React".
-3. Clone de repository van GitHub naar je computer. Gebruik hiervoor het commando "git clone" gevolgd door de URL van de repository. In dit geval is dat:
+2. Navigeer naar de map waar je de webapplicatie wilt opslaan. Gebruik hiervoor het: "cd" commando, gevolgd door de naam van de map. Bijvoorbeeld: "cd Documents/React".
+3. Clone de repository van GitHub naar je computer. Gebruik hiervoor het commando: "git clone" gevolgd door de URL van de repository. In dit geval is dat:
    git clone git@github.com:eltoxic053/fellini.git  
-4. Navigeer naar de map van de webapplicatie. Gebruik hiervoor het "cd" commando, gevolgd door de naam van de map. In dit geval is dat: cd fellini
+4. Navigeer naar de map van de webapplicatie. Gebruik hiervoor het: "cd" commando, gevolgd door de naam van de map. In dit geval is dat: cd fellini
 5. Installeer de afhankelijkheden van de applicatie met behulp van het volgende commando: npm install
 6. Dit kan even duren, afhankelijk van de snelheid van je internetverbinding. NPM zal alle afhankelijkheden van de applicatie downloaden en installeren in een map genaamd "node_modules".
 7. Start de webserver met het volgende commando: npm start
@@ -58,4 +58,4 @@ Om de standaard menu kaart te bekijken, klik je op de knop "Mijn bar" in de navi
 
 Om je account gegevens aan te passen zoals het uploaden van een profiel foto, het wijzigen van je wachtwoord of email adres, klik je rechtsboven aan de pagina op het grijze rondje. Hierna zal je door worden gestuurd na hjet profiel dashboard waar je verschillende dingen kunt aanpassen
 
-Om cocktails toe te voegen aan je favorieten klik je op het grijze rondje rechtsboven. Vervolgens klik je in hjet dashboard op cocktails, hier zal een zoekbalk tevoorschijn komen waar je, jou favoriete cocktail kunt toevoegen.
+Om cocktails toe te voegen aan je favorieten klik je op het grijze rondje rechtsboven. Vervolgens klik je in het dashboard op cocktails, hier zal een zoekbalk tevoorschijn komen waar je, jou favoriete cocktail kunt toevoegen.
