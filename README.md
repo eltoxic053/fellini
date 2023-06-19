@@ -6,6 +6,7 @@ Deze handleiding legt uit hoe je de Fellini React Web App kunt installeren op je
 1. Benodigdheden
 2. Installatie
 3. Starten van de webapplicatie
+4. De Fellini React Web App en TheCocktailDB API
 
 
 
@@ -59,3 +60,13 @@ Om de standaard menu kaart te bekijken, klik je op de knop "Mijn bar" in de navi
 Om je account gegevens aan te passen zoals het uploaden van een profiel foto, het wijzigen van je wachtwoord of email adres, klik je rechtsboven aan de pagina op het grijze rondje. Hierna zal je door worden gestuurd na hjet profiel dashboard waar je verschillende dingen kunt aanpassen
 
 Om cocktails toe te voegen aan je favorieten klik je op het grijze rondje rechtsboven. Vervolgens klik je in het dashboard op cocktails, hier zal een zoekbalk tevoorschijn komen waar je, jou favoriete cocktail kunt toevoegen.
+
+
+### `De Fellini React Web App en TheCocktailDB API`
+De Fellini React Web App maakt gebruik van de API van TheCocktailDB om cocktailgegevens op te halen en weer te geven. TheCocktailDB is een openbare database met een uitgebreide collectie cocktailrecepten en bijbehorende informatie.
+
+De API van TheCocktailDB biedt verschillende eindpunten waarmee je informatie over cocktails kunt opvragen, zoals de naam, ingrediënten, instructies en afbeeldingen. De Fellini-applicatie maakt gebruik van deze eindpunten om gebruikers in staat te stellen cocktails te zoeken, details over cocktails te bekijken en favoriete cocktails op te slaan.
+
+Om de API van TheCocktailDB te gebruiken, hoeft u geen afzonderlijke installatiestappen te volgen. De Fellini-applicatie bevat al de vereiste code om de API-aanroepen uit te voeren en de gegevens weer te geven.
+
+Het enige dat je hoeft te doen, is de Fellini-applicatie starten volgens de eerder genoemde stappen en je kunt direct aan de slag met het zoeken en bekijken van cocktails.
