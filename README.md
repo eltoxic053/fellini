@@ -7,6 +7,7 @@ Deze handleiding legt uit hoe je de Fellini React Web App kunt installeren op je
 2. Installatie
 3. Starten van de webapplicatie
 4. De Fellini React Web App en TheCocktailDB API
+5. NPM commando's 
 
 
 
@@ -28,7 +29,7 @@ Je kunt deze software downloaden vanaf de officiële website.
 ### `Installatie`
 
 Nu je de benodigde software hebt geïnstalleerd, kunnen we doorgaan met de installatie van de React webapplicatie. 
-Volg de onderstaande stappen:
+Volg de onderstaande stappen
 
 1. Open de terminal op je computer. Dit is de command line interface waarmee je commando's kunt geven aan je computer.
 2. Navigeer naar de map waar je de webapplicatie wilt opslaan. Gebruik hiervoor het: "cd" commando, gevolgd door de naam van de map. Bijvoorbeeld: "cd Documents/React".
@@ -70,3 +71,14 @@ De API van TheCocktailDB biedt verschillende eindpunten waarmee je informatie ov
 Om de API van TheCocktailDB te gebruiken, hoeft u geen afzonderlijke installatiestappen te volgen. De Fellini-applicatie bevat al de vereiste code om de API-aanroepen uit te voeren en de gegevens weer te geven.
 
 Het enige dat je hoeft te doen, is de Fellini-applicatie starten volgens de eerder genoemde stappen en je kunt direct aan de slag met het zoeken en bekijken van cocktails.
+
+### `NPM commandos`
+
+npm install: Installeert de afhankelijkheden van de applicatie.
+npm start: Start de ontwikkelserver en opent de webapplicatie in je standaard webbrowser.
+npm test: Voert de testen uit voor de applicatie.
+npm run build: Bouwt de productieversie van de applicatie.
+npm run lint: Voert een linter uit om de code op te schonen en te controleren op codeerstijl en mogelijke fouten.
+npm run format: Formatteert de code volgens de gedefinieerde codeerstijlrichtlijnen.
+npm run eject: Maakt het mogelijk om de interne configuratie en scripts van Create React App aan te passen.
+npm start:prod: Start de productieversie van de applicatie op een lokale server.
