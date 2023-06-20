@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(() => {
         return localStorage.getItem('isLoggedIn') === 'true';
     });
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const checkLoggedInStatus = async () => {
@@ -35,8 +36,10 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('authToken', token);
             localStorage.setItem('isLoggedIn', 'true');
             setIsLoggedIn(true);
+            setErrorMessage('');
         } catch (error) {
             console.error('Login failed', error);
+            setErrorMessage('Inloggen mislukt. Controleer uw gebruikersnaam en wachtwoord.');
         }
     };
 
@@ -44,10 +47,11 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('authToken');
         localStorage.removeItem('isLoggedIn');
         setIsLoggedIn(false);
+        setErrorMessage('');
     };
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, errorMessage }}>
             {children}
         </AuthContext.Provider>
     );

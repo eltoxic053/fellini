@@ -8,10 +8,17 @@ const LoginPage = () => {
     const { isLoggedIn, login } = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
+
     const handleLogin = () => {
-        login(username, password);
+        const loginSuccessful = login(username, password);
+        if (!loginSuccessful) {
+            setErrorMessage('Inloggen mislukt. Controleer uw gebruikersnaam en wachtwoord.');
+        } else {
+            setErrorMessage('Inloggen mislukt. Controleer uw gebruikersnaam en wachtwoord.')
+        }
     };
 
     if (isLoggedIn) {
@@ -58,6 +65,11 @@ const LoginPage = () => {
                         </div>
                     </div>
                 </div>
+                {errorMessage && (
+                    <div className="error-popup">
+                        <p className="error-message">{errorMessage}</p>
+                    </div>
+                )}
             </div>
             <div className="login-image-container">
                 <div className="login-image">
