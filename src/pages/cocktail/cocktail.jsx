@@ -6,6 +6,7 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Search from "../../components/Search/Search";
+import Clock from "../../components/Clock/Clock";
 
 const Cocktail = () => {
     const navigate = useNavigate();
@@ -184,6 +185,7 @@ const Cocktail = () => {
     return (
         <div className="cocktails-form">
             <Sidebar position='left'/>
+            <Clock position='right' />
             <div className="cocktails-form-container">
                 <h1>Favoriete Cocktails</h1>
                 <div className="cocktails-form-container-1">

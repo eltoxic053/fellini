@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import AccountInfo from "../../components/Accountinfo/accountInfo";
+import Clock from "../../components/Clock/Clock";
 
 
 
@@ -10,6 +11,7 @@ const UserProfile = () => {
         <div >
             <Sidebar position='left'/>
             <AccountInfo/>
+            <Clock position='left'/>
         </div>
     );
 };

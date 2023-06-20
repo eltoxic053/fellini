@@ -4,6 +4,7 @@ import './account.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import axios from "axios";
 import AccountInfo from "../../components/Accountinfo/accountInfo";
+import Clock from "../../components/Clock/Clock";
 
 const Account = () => {
     const [password, setPassword] = useState("");
@@ -123,6 +124,7 @@ const Account = () => {
         <div className="edit-form">
             <Sidebar position='left' />
             <AccountInfo/>
+            <Clock position='left' />
             <div className="edit-form-container">
                 <div className="edit-form-profile-edit">
                     <label htmlFor="fileInput">
