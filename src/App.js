@@ -14,9 +14,9 @@ import Registration from "./pages/registration/registration";
 import UserProfile from "./pages/userprofile/userProfile";
 import Favorite from "./pages/favorieten/favorite";
 import Cocktail from "./pages/cocktail/cocktail";
+import { RegistrationProvider } from './Context/registrationContext'
 
 function App() {
-
     function AuthenticatedFooter() {
         const { isLoggedIn } = useContext(AuthContext);
 
@@ -26,11 +26,12 @@ function App() {
             return null;
         }
     }
+
     return (
         <div>
             <BrowserRouter>
                 <AuthProvider>
-                    <Navbar/>
+                    <Navbar />
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
                         <Route path="/main-menu" element={<MainMenu />} />
@@ -40,7 +41,8 @@ function App() {
                         <Route path="/userprofile" element={<UserProfile />} />
                         <Route path="/favorieten" element={<Favorite />} />
                         <Route path="/userprofile/account" element={<Account />} />
-                        <Route path="/userprofile/cocktails" element={<Cocktail/>} />
+                        <Route path="/userprofile/cocktails" element={<Cocktail />} />
+                        <Route path="/registration" element={<RegistrationPage />} /> {/* Add this line */}
                     </Routes>
                     <AuthenticatedFooter />
                 </AuthProvider>
@@ -49,6 +51,12 @@ function App() {
     );
 }
 
-
+function RegistrationPage() {
+    return (
+        <RegistrationProvider>
+            <Registration />
+        </RegistrationProvider>
+    );
+}
 
 export default App;
