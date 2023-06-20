@@ -15,9 +15,9 @@ const LoginPage = () => {
     const handleLogin = () => {
         const loginSuccessful = login(username, password);
         if (!loginSuccessful) {
-            setErrorMessage('');
+            setErrorMessage('Inloggen mislukt. Controleer uw gebruikersnaam en wachtwoord.');
         } else {
-            setErrorMessage('Inloggen mislukt. Controleer uw gebruikersnaam en wachtwoord.')
+            setErrorMessage('');
         }
     };
 
